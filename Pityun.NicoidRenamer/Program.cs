@@ -26,8 +26,26 @@ namespace Pityun.NicoidRenamer
                 }
             }
 
+            Delete(directory);
 
+            
 
+            string[] jfiles = Directory.GetFiles(directory, "*.json"); // 拡張子がjsonのファイル名のリストを取得（配列）
+            {
+                foreach (string j in jfiles) // 配列のファイル名を一つずつ処理
+                {
+                    RenameMovieFile(j);
+                    Console.WriteLine(j); // 処理対象のjsonファイルの名前を出力
+
+                }
+
+                Console.WriteLine("終了しました。閉じるにはEnterキーを押してください");
+                Console.ReadLine();
+            }
+        }
+
+        private static void Delete(string directory)
+        {
             // xmlファイルを取得し、削除する
             string[] xfiles = Directory.GetFiles(directory, "*.xml"); // 拡張子がxmlのファイル名のリストを取得（配列）
 
@@ -84,22 +102,9 @@ namespace Pityun.NicoidRenamer
                 Console.WriteLine("archiveファイルを削除せずに続行します。");
             }
 
-
             Console.WriteLine("不要なファイルの削除が終了しました。");
-
-            string[] jfiles = Directory.GetFiles(directory, "*.json"); // 拡張子がjsonのファイル名のリストを取得（配列）
-            {
-                foreach (string j in jfiles) // 配列のファイル名を一つずつ処理
-                {
-                    RenameMovieFile(j);
-                    Console.WriteLine(j); // 処理対象のjsonファイルの名前を出力
-
-                }
-
-                Console.WriteLine("終了しました。閉じるにはEnterキーを押してください");
-                Console.ReadLine();
-            }
         }
+
         static Regex regex = new Regex("\"videoTitle\":\"([^\"]+)\",\"viewCount\""); // クラスのフィールド、メンバ変数
                                                                                      /* ループの中で何度もインスタンスを生成するのは非効率なので、ループの外で1度だけ生成。*/
 
