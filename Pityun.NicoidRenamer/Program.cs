@@ -122,8 +122,8 @@ namespace Pityun.NicoidRenamer
 
             string path = Path.GetDirectoryName(jsonfilename); // ファイルパスからディレクトリを取得
             string oldFile = Path.GetFileName(jsonfilename).Replace("json", "mp4"); // jsonのファイルパスからファイル名を取得し、拡張子を置き換える。
-            if (File.Exists(path + Path.DirectorySeparatorChar + oldFile))
-            {
+            /*if (File.Exists(path + Path.DirectorySeparatorChar + oldFile))
+            {*/
                 string newMFile = match.Groups[1].Value + ".mp4"; // 正規表現検索の結果から新しいファイル名を生成
                
                 StringBuilder sb = new StringBuilder(newMFile);
