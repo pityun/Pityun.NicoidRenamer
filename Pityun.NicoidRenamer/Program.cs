@@ -3,6 +3,7 @@ using System.Text;
 using System.Linq;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Pityun.NicoidRenamer
 {
@@ -31,7 +32,7 @@ namespace Pityun.NicoidRenamer
             
 
             string[] jfiles = Directory.GetFiles(directory, "*.json"); // 拡張子がjsonのファイル名のリストを取得（配列）
-            {
+             
                 foreach (string j in jfiles) // 配列のファイル名を一つずつ処理
                 {
                     RenameMovieFile(j);
@@ -41,7 +42,7 @@ namespace Pityun.NicoidRenamer
 
                 Console.WriteLine("終了しました。閉じるにはEnterキーを押してください");
                 Console.ReadLine();
-            }
+            
         }
 
         private static void Delete(string directory)
@@ -124,12 +125,37 @@ namespace Pityun.NicoidRenamer
             if (File.Exists(path + Path.DirectorySeparatorChar + oldFile))
             {
                 string newMFile = match.Groups[1].Value + ".mp4"; // 正規表現検索の結果から新しいファイル名を生成
-
+               
                 StringBuilder sb = new StringBuilder(newMFile);
                 sb.Replace("\\\\", "＼").Replace("\\", "").Replace('/', '／').Replace(':', '：').Replace('*', '＊').Replace('?', '？').Replace('"', '”').Replace('<', '＜').Replace('>', '＞').Replace('|', '｜');
+                    
                 File.Move(path + Path.DirectorySeparatorChar + oldFile, path + Path.DirectorySeparatorChar + sb.ToString()); // ファイル名とディレクトリパスからファイルパスを生成リネーム。
-
             }
         }
+    }
+
+    class MovieInfo
+    {
+        internal string Title { get; set; } // タイトル用プロパティ
+        internal string Nickname { get; set; } // ニックネーム用プロパティ
+        internal string Time { get; set; } // 投稿日時用プロパティ
+
+
+       /* private string hoge; // フィールド
+
+        internal string Hoge
+        {
+            get
+            {
+                return this.hoge;
+            }
+            private set
+            {
+                if (value != "だめなデータ")
+                {
+                    this.hoge = value + "omake";
+                }
+            }
+        }*/
     }
 }
